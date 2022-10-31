@@ -1,0 +1,34 @@
+git pull origin main
+$ git pull origin <target-branch>
+
+
+
+Main			   Dev  		
+70 - run A 	70 - run A
+70 - run B	70 - run A 	(forget to pull)
+
+In branch main : Solution: rebase and merge 
+	Cons : cant rewind your own code
+		Sol : rebase then test code -> merge
+Squash : before deploy
+Cherry pick : create and merge
+
+
+Git flow
+0. git status  
+1. git add . 				--> staged all files
+2. git commit -m "<message>"	--> so cant rewind
+3. git push origin <branch>	--> push to remote ( when break ) 
+	<branch> = your bracnh name
+4. create pull request at branches in www.github.com --> when make sure the code work, merge into main
+5. merge --> automatically
+6. git checkout main
+7. git checkout -b <new branch>
+	<new branch> = your new bracnh name
+8. git status
+
+
+Misc
+git log 			--> check log ( q to exit() )
+git status		--> check status, branch, local remote
+git fetch origin --> refresh
