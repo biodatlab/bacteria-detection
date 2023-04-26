@@ -9,7 +9,7 @@ There are 5 classes we are interested including bacteria treated with **Ampicill
 
 ## Dataset
 
-Current dataset contains **600 images**: Ampicillin (100), Ciprofloxacin (100), Rifampicin (100), Tetracycline (100),
+Current dataset contains **900 images**: Ampicillin (100), Ciprofloxacin (100), Rifampicin (100), Tetracycline (100), Mecillinam(100), Kanamycin(100), Colistin(100), 
 and Untreated (200).
 
 ## Annotation tool
