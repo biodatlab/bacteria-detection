@@ -5,7 +5,7 @@ They work mainly by blocking the vital pathway of those organisms and stopping t
 research shows that we can predict the antibiotics used on bacteria by visualizing its morphology. Here,
 we present the object detection for detecting bacteria and identifying the antibiotics used on them.
 There are 5 classes we are interested including bacteria treated with **Ampicillin**, **Ciprofloxacin**, **Rifampicin**,
-**Tetracycline**, and **Untreated**.
+**Tetracycline**, **Mecillinam**, **Kanamycin**, **Colistin**, and **Untreated**.
 
 ## Dataset
 
