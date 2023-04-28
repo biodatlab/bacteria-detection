@@ -222,4 +222,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+*.csv
+*.h5
+*.pt
+*.pth
+*.pkl
+*.pb
+*.tif
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,python

@@ -1,0 +1,52 @@
+# single-gpu testing
+python tools/test.py \
+    ${CONFIG_FILE} \
+    ${CHECKPOINT_FILE} \
+    [--out ${RESULT_FILE}] \
+    [--eval ${EVAL_METRICS}] \
+    [--show]
+
+# CPU: disable GPUs and run single-gpu testing script
+export CUDA_VISIBLE_DEVICES=-1
+python tools/test.py \
+    ${CONFIG_FILE} \
+    ${CHECKPOINT_FILE} \
+    [--out ${RESULT_FILE}] \
+    [--eval ${EVAL_METRICS}] \ 
+    [--show]
+
+# multi-gpu testing
+bash tools/dist_test.sh \
+    ${CONFIG_FILE} \
+    ${CHECKPOINT_FILE} \
+    ${GPU_NUM} \
+    [--out ${RESULT_FILE}] \
+    [--eval ${EVAL_METRICS}]
+
+
+------------------------------------------------------------------
+
+python tools/train.py \
+    ${CONFIG_FILE} \
+    [optional arguments]
+    
+
+--no-validate (not suggested): Disable evaluation during training.
+
+--work-dir ${WORK_DIR}: Override the working directory.
+
+--resume- from ${CHECKPOINT_FILE}: Resume from a previous checkpoint file.
+
+--options 'Key=value': Overrides other settings in the used config.
+
+
+---------------------------------------------------------------------------------------
+
+python tools/test.py 
+configs/cascade_rcnn/bacteria_crcnn_x101_coco.py 
+work_dirs/cascade_x101_2-12-22/best_bbox_mAP_epoch_120.pth 
+--eval bbox 
+--out work_dirs/cascade_x101_2-12-22/result.pkl 
+--options jsonfile_prefix=work_dirs/cascade_x101_2-12-22/mask_rcnn_test-dev_results
+
+../../bacteria_img_jbing/split_coco/val_dataset.json 

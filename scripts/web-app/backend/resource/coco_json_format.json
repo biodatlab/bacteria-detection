@@ -1,0 +1,46 @@
+{
+    "categories": [
+    {
+        "id": 0,
+        "name": "unt",
+        "supercategory": "unt"
+    },
+    {
+        "id": 1,
+        "name": "Amp",
+        "supercategory": "Amp"
+    },
+    {
+        "id": 2,
+        "name": "Cip",
+        "supercategory": "Cip"
+    },
+    {
+        "id": 3,
+        "name": "Rif",
+        "supercategory": "Rif"
+    },
+    {
+        "id": 4,
+        "name": "Tet",
+        "supercategory": "Tet"
+    },
+    {
+        "id": 5,
+        "name": "Col",
+        "supercategory": "Col"
+    },
+    {
+        "id": 6,
+        "name": "Kan",
+        "supercategory": "Kan"
+    },
+    {
+        "id": 7,
+        "name": "Mec",
+        "supercategory": "Mec"
+    }
+],
+"images": [],
+"annotations": []
+}
