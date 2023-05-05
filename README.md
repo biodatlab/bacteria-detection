@@ -27,6 +27,23 @@ Current result are as follows.
 |          |              |      |     |             |              |             |
 
 
+## Installation 
+```html
+$ conda create -n your_env python=3.9.13 cython numpy
+```
+```
+$ cd bacteria-detection
+```
+```
+$ pip install -r requirements.txt
+```
+
+ ### Weight
+Download required model [here](https://drive.google.com/drive/folders/1S8LEIkAcTxg5MJtzbsWkIeIt-Ayp5Mzz?usp=sharing)
+ - move folder checkpoints to web-app/backend/mmdetection
+ - move color_model_checkpoints and deepmac_1024x1024_coco17 to web-app/backend
+
+
 ## Members
 
 - Korrawiz Chotayapa
