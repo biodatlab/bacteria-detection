@@ -1,0 +1,18 @@
+colorize_model:
+  checkpoint: backend/color_model_checkpoints/best_model_FPN_21-4-23.h5
+  backbone:
+
+detection_model:
+  yolox_m:
+    config: backend/mmdetection/checkpoints/yolox_m/bacteria_yolox_m_8x8_300e_coco.py
+    checkpoint: backend/mmdetection/checkpoints/yolox_m/best_bbox_mAP_epoch_800.pth
+
+  crcnn_r250 :
+    config: backend/mmdetection/checkpoints/cascade_rcnn_r2_50/bacteria_rs101dcn_dyhead.py
+    checkpoint: backend/mmdetection/checkpoints/cascade_rcnn_r2_50/best_bbox_mAP_epoch_58.pth
+
+  crcnn_r2101 :
+    config: backend/mmdetection/checkpoints/cascade_rcnn_r2_101/bacteria_rs101dcn_dyhead.py
+    checkpoint: backend/mmdetection/checkpoints/cascade_rcnn_r2_101/best_bbox_mAP_epoch_79.pth
+
+segmentation_model: 'backend/deepmac_1024x1024_coco17/saved_model'
