@@ -21,12 +21,12 @@ Actual images are in TIFF format that we use for actual model training and testi
 
 Current result are as follows.\
 Individual model
-| Model                    | Backbone             | Head | Neck           | mAP   | mIOU  | AP (50) | AP(75) | AP (medium) | AP (large) |
-|--------------------------|----------------------|------|----------------|-------|-------|---------|--------|-------------|------------|
-| Cascade RCNN             | Res2Net-101 + DcnV2  | sabl | PAFPN + Dyhead | 0.652 | 0.800 | 0.808   | 0.762  | 0.677       | 0.692      |
-| YOLOX_m                  | YOLOX_M + CSPDarknet | -    | PAFPN          | 0.621 | 0.755 | 0.902   | 0.835  | 0.711       | 0.796      |
-| Cascade RCNN             | Res2Net-50 + DcnV2   | sabl | Dyhead         | 0.680 | 0.802 | 0.820   | 0.779  | 0.704       | 0.628      |
-| Casade  RCNN + pre-train | Res2Net-50 + DcnV2   | sabl | PAFPN + Dyhead | 0.675 | 0.794 | 0.817   | 0.778  | 0.697       | 0.641      |
+| Model                    | Backbone             | Head | Neck           | mAP   | mIOU  | AP(50) | AP(75) | AP (medium) | AP (large) |
+|--------------------------|----------------------|------|----------------|-------|-------|--------|--------|-------------|------------|
+| Cascade RCNN             | Res2Net-101 + DcnV2  | sabl | PAFPN + Dyhead | 0.652 | 0.800 | 0.808  | 0.762  | 0.677       | 0.692      |
+| YOLOX_m                  | YOLOX_M + CSPDarknet | -    | PAFPN          | 0.621 | 0.755 | 0.902  | 0.835  | 0.711       | 0.796      |
+| Cascade RCNN             | Res2Net-50 + DcnV2   | sabl | Dyhead         | 0.680 | 0.802 | 0.820  | 0.779  | 0.704       | 0.628      |
+| Casade  RCNN + pre-train | Res2Net-50 + DcnV2   | sabl | PAFPN + Dyhead | 0.675 | 0.794 | 0.817  | 0.778  | 0.697       | 0.641      |
 
 Weight box fusion model and mAP per class
 | mIoU  |  mAP  | AP (50) | AP(75) | AP (medium) | AP (large) |
