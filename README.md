@@ -29,9 +29,9 @@ Individual model
 | Casade  RCNN + pre-train | Res2Net-50 + DcnV2   | sabl | PAFPN + Dyhead | 0.675 | 0.794 | 0.817  | 0.778  | 0.697       | 0.641      |
 
 Weight box fusion model and mAP per class
-| mIoU  |  mAP  | AP (50) | AP(75) | AP (medium) | AP (large) |
-|-------|-------|---------|--------|-------------|------------|
-| 0.753 | 0.699 | 0.863   | 0.796  | 0.717       | 0.675      |
+|                   | mIoU  |  mAP  | AP (50) | AP(75) | AP (medium) | AP (large) |
+|-------------------|-------|-------|---------|--------|-------------|------------|
+| Weight box fusion | 0.753 | 0.699 | 0.863   | 0.796  | 0.717       | 0.675      |
 
 |               |  unt  | Amp   | Cip   | Rif   | Tet   | Col   | Kan   | Mec   |
 |---------------|-------|-------|-------|-------|-------|-------|-------|-------|
