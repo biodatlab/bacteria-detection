@@ -19,12 +19,17 @@ Actual images are in TIFF format that we use for actual model training and testi
 
 ## Results
 
-Current result are as follows.
-
+Current result are as follows.\
+Individual model
 | Backbone | Architecture | mIoU | mAP | mAP (small) | mAP (medium) | mAP (large) |
 |----------|--------------|------|-----|-------------|--------------|-------------|
 |          |              |      |     |             |              |             |
 |          |              |      |     |             |              |             |
+
+Weight box fusion model
+| mIoU  |  mAP  | AP (50) | AP(75) | AP (medium) | AP (large) |
+|-------|-------|---------|--------|-------------|------------|
+| 0.753 | 0.699 | 0.863   | 0.796  | 0.717       | 0.675      |
 
 
 ## Installation 
