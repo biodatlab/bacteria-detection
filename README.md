@@ -53,6 +53,12 @@ $ cd bacteria-detection
 ```
 $ pip install -r requirements.txt
 ```
+### Front-end: ReactJS
+Install NodeJS [here](https://nodejs.org/en)
+```
+$ cd webapp/frontend/bacteria-app
+$ npm start
+```
 
  ### Weight
 Download required model [here](https://drive.google.com/drive/folders/1S8LEIkAcTxg5MJtzbsWkIeIt-Ayp5Mzz?usp=sharing)
