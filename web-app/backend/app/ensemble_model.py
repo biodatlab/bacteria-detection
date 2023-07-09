@@ -1,11 +1,8 @@
 from itertools import groupby
 import json
 import cv2
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 from ensemble_boxes import *
 from typing import List, Dict, Any, Tuple
-from pycocotools.coco import COCO
 import numpy as np
 from .inference_model import get_result
 

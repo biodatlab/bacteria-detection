@@ -1,18 +1,28 @@
-from typing import Annotated, Any, Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 import numpy as np
-from tempfile import NamedTemporaryFile
 from pathlib import Path
 import json
 import cv2
 import mmcv
 import pandas as pd
 from mmdet.apis import init_detector, inference_detector
-import matplotlib.pyplot as plt
+import yaml
+from loguru import logger
 
-def _init_model(model_dir:str, check_point_dir: str):
+
+PRJ_ROOT = Path(__file__).parents[3] / "web-app"
+CONFIG_DIR = PRJ_ROOT / "backend" / "config.yaml"
+
+with open(CONFIG_DIR, "r") as f:
+    config = yaml.safe_load(f)
+DEVICE = config['device']
+
+
+def _init_model(model_dir: str, check_point_dir: str, device=DEVICE):
+    logger.info(f'using device = {DEVICE}')
     config_file = model_dir
     check_point = check_point_dir
-    model = init_detector(config_file, check_point, device='cuda:0')
+    model = init_detector(config_file, check_point, device=device)
     return model
 
 def mmdet_to_coco(detection_results, image_id):

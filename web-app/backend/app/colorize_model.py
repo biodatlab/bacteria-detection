@@ -1,23 +1,21 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-import cv2
-import keras
-import numpy as np
-import matplotlib.pyplot as plt
-import skimage
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 import os
 from pathlib import Path
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
 import tensorflow as tf
+
 os.environ["SM_FRAMEWORK"] = "tf.keras"
 tf.config.run_functions_eagerly(True)
-from tensorflow import keras
+from glob import glob
+
 import segmentation_models as sm
 import yaml
-
-from glob import glob
-from tqdm import tqdm
 
 PRJ_ROOT = Path(__file__).parents[3] / 'web-app'
 CONFIG_DIR = PRJ_ROOT / 'backend/config.yaml'
@@ -64,7 +62,7 @@ if __name__ == "__main__":
     print(test_images)
     
     import tifffile
-    
+
     # for img_path in tqdm(test_images):
     #     img = tifffile.imread(img_path)
     #     img = img.transpose(1, 2, 0)
