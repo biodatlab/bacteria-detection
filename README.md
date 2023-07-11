@@ -17,7 +17,7 @@ we purpose
 
 * **YoloX with PaFPN neck**
 
-and ensemble 3 models using **YoloX with PaFPN neck**
+and ensemble 3 models using **Weighted boxes fusion**
 
 2. **Feature extraction model**
 * **Feature Pyramid Network (FPN)** for automatic color manipulation
