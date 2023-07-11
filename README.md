@@ -72,7 +72,7 @@ Comparing features extracted from our model with CellProfiler (traditional metho
 ## Installation 
 
 ### Download and activate the environment
-- Download the virtual environment from [here]()
+- Download the virtual environment from [here](https://drive.google.com/file/d/1e3J-Eg9dTtupIfhvqRHu8fAz3zuM-kXr/view?usp=sharing)
 - extract the virtual environment
 
 ```
