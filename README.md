@@ -118,4 +118,4 @@ Image of the web application with predicted results
 - Titipat Achakulvisut
 
 ## ACKNOWLEDGMENT
-We want to thank Poochit Nonejuie Ph.D. and Mr. Thanadon Samernate from the Institute of Molecular Biosciences that inspired us and prepared the dataset for this study.
+We would like to thank Poochit Nonejuie Ph.D. and Mr. Thanadon Samernate from the Institute of Molecular Biosciences that inspired us and prepared the dataset for this study.
