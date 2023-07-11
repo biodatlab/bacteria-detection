@@ -12,9 +12,7 @@ The processes are divided into 2 parts
 1. **Object detection**
 we purpose 
 * **Cascade R-CNN object detection as a base model and modified with Res2Net50 + DCNv2 backbone, PaFPN with Dyhead neck, and SABL detection head**
-
 * **Cascade R-CNN object detection as a base model and modify with Res2Net101 + DCNv2 backbone, PaFPN with Dyhead neck and SABL detection head**
-
 * **YoloX with PaFPN neck**
 
 and ensemble 3 models using **Weighted boxes fusion**
