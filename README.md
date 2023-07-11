@@ -1,9 +1,9 @@
-# Object detection of bacteria treated with antibiotics from microscopic images
+# Automatic detection and morphological feature extraction of E.Coli under antibiotic treatments
 
 Antibiotics are the primary drug for treating various kinds of infections occurring from bacteria and microbes.
 They work mainly by blocking the vital pathway of those organisms and stopping them from multiplying. Previous
-research shows that we can predict the antibiotics used on bacteria by visualizing its morphology. Here,
-we present the object detection for detecting bacteria and identifying the antibiotics used on them with its mophological features for example DNA intensity, contour area, and min areaRect.
+research shows that we can predict the antibiotics used on bacteria by visualizing their morphology. Here,
+we present object detection for detecting bacteria and identifying the antibiotics used on them with their mophological features for example DNA intensity, contour area, and min areaRect.
 
 There are 8 classes we are interested including bacteria treated with **Ampicillin**, **Ciprofloxacin**, **Rifampicin**,
 **Tetracycline**, **Mecillinam**, **Kanamycin**, **Colistin**, and **Untreated**.
