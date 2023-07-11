@@ -57,7 +57,7 @@ Actual images are in TIFF format that we use for actual model training and testi
 
 ## Results
 
-The current result are as follows.\
+The current results are as follows.\
 Individual model
 | Model                    | Backbone             | Head | Neck           | mAP   | mIOU  | AP(50) | AP(75) | AP (medium) | AP (large) | Checkpoint|
 |--------------------------|----------------------|------|----------------|-------|-------|--------|--------|-------------|------------|------------|
