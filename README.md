@@ -104,7 +104,9 @@ $ npm start
 Image of the web application with predicted results
 <table style="padding:10px">
   <tr>
-<img src="./Bacteria images/readme_image/webapp.png"/>
+<img src="./Bacteria images/readme_image/webapp_only.png"/>
+  <tr>
+<img src="./Bacteria images/readme_image/webapp_img.png"
   <tr>
 <img src="./Bacteria images/readme_image/webapp_table.png"/>
 </table>
