@@ -101,13 +101,17 @@ Install NodeJS [here](https://nodejs.org/en)
 $ cd webapp/frontend/bacteria-app
 $ npm start
 ```
-Image of the web application with predicted results
+
+### Web application
 <table style="padding:10px">
   <tr>
+    Overall appearance of the web application
 <img src="./Bacteria images/readme_image/webapp_only.png"/>
   <tr>
+    Predicted images: bbox with class (left) and bbox with index number for feature extraction table (right)
 <img src="./Bacteria images/readme_image/webapp_img.png"
   <tr>
+    Table of Feature extraction results
 <img src="./Bacteria images/readme_image/webapp_table.png"/>
 </table>
 
