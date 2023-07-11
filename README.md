@@ -24,9 +24,8 @@ and ensemble 3 models using **YoloX with PaFPN neck**
 * **Deep Mask-heads Above CenterNet (Deep-MAC)** for instance segmentation from the bounding box given by object detection models
 * **Open-CV** for features extraction 
 
+<img src="./Bacteria images/readme_image/diagram.jpg"/>
 
-
-For qualitative analysis, you can see an example bounding box 
 ## Dataset
 
 The current dataset contains **900 images**: Ampicillin (100), Ciprofloxacin (100), Rifampicin (100), Tetracycline (100), Mecillinam(100), Kanamycin(100), Colistin(100), 
