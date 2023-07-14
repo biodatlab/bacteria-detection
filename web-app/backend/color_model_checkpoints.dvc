@@ -1,0 +1,6 @@
+outs:
+- md5: ea8c3227f384987d2ec0da9f665c7197.dir
+  size: 184758024
+  nfiles: 1
+  hash: md5
+  path: color_model_checkpoints

@@ -1,0 +1,6 @@
+outs:
+- md5: b97c27c287216a3594b2be6936377ee7.dir
+  size: 1453532697
+  nfiles: 7
+  hash: md5
+  path: deepmac_1024x1024_coco17
