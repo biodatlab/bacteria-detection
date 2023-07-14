@@ -3,6 +3,7 @@ import gc
 import io
 import json
 import os
+import time
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -26,8 +27,8 @@ PRJ_ROOT = Path(__file__).parents[3] / "web-app"
 CONFIG_DIR = PRJ_ROOT / "backend" / "config.yaml"
 DEMO_IMG_PATH = PRJ_ROOT / "backend" / "demo_image"
 DEMO_FILES_PATH = PRJ_ROOT / "backend" / "demo_files"
-WORK_DIR = Path("mmdetection") / "checkpoints"
 SCORE_THRESHOLD = 0.3
+COCO_TEMPLATE = PRJ_ROOT / "backend" / "resource" / "coco_json_format.json"
 
 
 gpus = tf.config.experimental.list_physical_devices("GPU")
@@ -41,6 +42,7 @@ origins = [
     "http://localhost:3000",
 ]
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -52,6 +54,7 @@ app.add_middleware(
 
 with open(CONFIG_DIR, "r") as f:
     config = yaml.safe_load(f)
+
 
 MODELS = config["detection_model"]
 MASK_MODEL_PATH = str(PRJ_ROOT / config["segmentation_model"])
@@ -93,7 +96,6 @@ def inference_bacteria_model(image: np.ndarray, image_id: int, model_dict=MODELS
 
     else:
         return {"error": "No image found"}
-
     # ensemble model
     ensemble_result = ensemble_model(results, num_image, image_id)
     return thresholding_box(ensemble_result, threshold=SCORE_THRESHOLD)
@@ -101,17 +103,6 @@ def inference_bacteria_model(image: np.ndarray, image_id: int, model_dict=MODELS
 
 def clear_gpu():
     gc.collect()
-
-
-def get_features():
-    features_bac = {
-        "membrane_width": 10,
-        "membrane_high": 10,
-        "membrane_permeter": 10,
-        "membrane_area": 10,
-    }
-
-    return features_bac
 
 
 def dict_to_csv(json_dict):
@@ -135,22 +126,23 @@ async def index() -> None:
 
 @app.post("/detect/")
 async def create_file(answer_images: List[UploadFile]):
-    # global SCORE_THRESHOLD
-    # print('score threshold:', SCORE_THRESHOLD)
-    import time
 
     time.sleep(1)
-
     clear_gpu()
+
     pred_response = {"image": [], "box_id": [], "json_results": {}, "features": None}
-    with open("./resource/coco_json_format.json", "r") as coco_json:
+    with open(COCO_TEMPLATE, "r") as coco_json:
         results = json.load(coco_json)
 
     mask_model = tf.keras.models.load_model(MASK_MODEL_PATH)
 
     for idx, answer_image in enumerate(answer_images):
+
+        # read image from answer image
         img_input_byte = bytearray(await answer_image.read())
         img = tifffile.imread(io.BytesIO(img_input_byte.copy()))
+
+        # preprocessing image
         img = img.transpose(1, 2, 0)
         original_img = img
         img = (cv2.convertScaleAbs(img, alpha=(255.0 / 65535.0))).astype(np.uint8)
@@ -158,13 +150,7 @@ async def create_file(answer_images: List[UploadFile]):
             os.path.join(str(DEMO_FILES_PATH), f"original_demo_img.png"),
             cv2.cvtColor(img.copy(), cv2.COLOR_RGB2BGR),
         )
-
-        color_img = (colorize_image(img.copy()) * 255).astype(np.uint8)
-        cv2.imwrite(
-            os.path.join(str(DEMO_FILES_PATH), f"color_demo_img.png"),
-            cv2.cvtColor(color_img.copy(), cv2.COLOR_RGB2BGR),
-        )
-        clear_gpu()
+        # add image to final response
         results["images"].append(
             {
                 "height": img.shape[0],
@@ -173,22 +159,33 @@ async def create_file(answer_images: List[UploadFile]):
                 "file_name": str(answer_image.filename),
             }
         )
-        # read image from answer image
-
+        # colorize image
+        color_img = (colorize_image(img.copy()) * 255).astype(np.uint8)
+        cv2.imwrite(
+            os.path.join(str(DEMO_FILES_PATH), f"color_demo_img.png"),
+            cv2.cvtColor(color_img.copy(), cv2.COLOR_RGB2BGR),
+        )
+        clear_gpu()
+        
+        # read image from answer image in cv2 format
         img_cv = np.asarray(img_input_byte.copy(), dtype="uint8")
         img_cv = cv2.imdecode(img_cv, cv2.IMREAD_COLOR)
         coco_result = inference_bacteria_model(img_cv.copy(), idx)
+
+        # saving result to json
         with open(os.path.join(str(DEMO_FILES_PATH), f"result_demo.json"), "w") as f:
             json.dump(coco_result, f)
-
         clear_gpu()
+
+        # add annotation to final response
         results["annotations"] += coco_result
-        # ได้รูปตรงนี้
         ann_img = show_ann_from_json(
             coco_result, color_img.copy(), MODELS["crcnn_r2101"]
         )
-        clear_gpu()
+        # saving annotation image
         cv2.imwrite(os.path.join(str(DEMO_FILES_PATH), "output.png"), ann_img.copy())
+
+        # extracting features
         features, index_img = extracting_features(
             color_img.copy(), original_img.copy(), coco_result, mask_model
         )
@@ -196,6 +193,7 @@ async def create_file(answer_images: List[UploadFile]):
             str(Path(str(answer_image.filename)).stem) for _ in range(len(features))
         ]
 
+        # adding features to final response
         if not isinstance(pred_response["features"], pd.DataFrame):
             pred_response["features"] = features
         else:
@@ -206,32 +204,40 @@ async def create_file(answer_images: List[UploadFile]):
                 ],
                 axis=0,
             )
-        logger.info(pred_response["features"].shape)
+
+        # saving image with index
         cv2.imwrite(
             os.path.join(str(DEMO_FILES_PATH), "idx_img.png"),
             cv2.cvtColor(index_img.copy(), cv2.COLOR_RGB2BGR),
         )
 
+        # convert image to byte for Frontend
         bytes_string = array_to_byte(ann_img)
         index_img_byte = array_to_byte(cv2.cvtColor(index_img, cv2.COLOR_RGB2BGR))
 
         # append to dictionary
         pred_response["image"].append(bytes_string)
         pred_response["box_id"].append(index_img_byte)
-        time.sleep(5)
 
+    # save annotation result to csv format in final response
     pred_response["json_results"] = coco_to_csv(results)
-    # save as csv
+
+    # save annotation result to csv format in local
     with open(os.path.join(str(DEMO_FILES_PATH), "results.csv"), "w") as f:
         f.write(coco_to_csv(results))
 
+    # change features to csv format in final response
     pred_response["features"] = pred_response["features"].to_csv(index=False)
-    with open(os.path.join(str(DEMO_FILES_PATH), "features123.csv"), "w") as f:
+
+    # save features to csv format in local
+    with open(os.path.join(str(DEMO_FILES_PATH), "features.csv"), "w") as f:
         f.write(pred_response["features"])
-    # print("type:", type(pred_response["features"]))
+
+    # save final response to json format in local
     with open("pred_response.json", "w") as f:
         json.dump(pred_response, f)
-    print("finish")
+
+    logger.info("Finish inference")
     return pred_response
 
 
@@ -244,6 +250,3 @@ async def update_threshold(threshold: float):
     logger.info(f"score threshold:{SCORE_THRESHOLD}")
     return {"threshold": SCORE_THRESHOLD}
 
-
-if __name__ == "__main__":
-    test_img_path = "/home/badboy-002/github/senior_project/bacteria_img_jbing/20221228_TS008_1hr_1mindye_KAN_1x_47_R3D_D3D_CRC-1.tif"

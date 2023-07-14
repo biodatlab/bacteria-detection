@@ -145,6 +145,7 @@ def ensemble_bbox(
         )
     return dict(boxes=boxes, scores=scores, labels=labels)
 
+
 def denormalize_bbox(pascal_bbox: List[float], WIDTH: int=1024,HEIGHT: int=1024) -> List[float]:
     xmin, ymin, xmax, ymax = pascal_bbox
     # check if all box is NaN
@@ -177,9 +178,8 @@ def ensemble_model(results_list: List[CocoJson], num_image, idx) -> CocoJson:
                 "score": ensemble_wbf['scores'][i].round(4),
                 "category_id": int(ensemble_wbf['labels'][i])
             }
-            ensemble_box_coco.append(anno_dict)
-            
-            
+            ensemble_box_coco.append(anno_dict)    
+       
     return ensemble_box_coco
 
 def main():

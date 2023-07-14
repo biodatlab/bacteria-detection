@@ -39,9 +39,6 @@ def mmdet_to_coco(detection_results, image_id):
                 'score': score.astype('float64')
             }
             annotations.append(annotation)
-            
-        with open('output.json', 'w') as output:
-            json.dump(annotations, output)
     return annotations
 
 def coco_to_csv(coco_json: List[Dict[str, str]]):
@@ -77,12 +74,10 @@ def get_result(image: np.ndarray, model_dir:str, check_point_dir: str, image_id:
         model_dir,
         check_point_dir
     )
-    # if tiff image /255
-    # else image
     image = image
     result = inference_detector(model, image)
     coco_result = mmdet_to_coco(result, image_id)
-    # pred_img = model.show_result(image, result)
+
 
     return coco_result
 

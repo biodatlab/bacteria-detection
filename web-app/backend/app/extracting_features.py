@@ -1,23 +1,21 @@
 # Load libraries
-import cv2
 import json
 import logging
 import os
 import random
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
-from matplotlib import patches
+import cv2
+import cv2 as cv
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import tensorflow as tf
+from matplotlib import patches
 from PIL import Image
 from skimage import color
 from skimage.color import rgb_colors
-import tensorflow as tf
-import cv2 as cv
-import matplotlib.pyplot as plt
-
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
@@ -387,7 +385,6 @@ def get_intensity_features(
     original_img: np.ndarray, features_df: pd.DataFrame
 ) -> pd.DataFrame:
     intsty_img = original_img
-    print(f"image dtype: {intsty_img.dtype}")
     # convert to float:
     intensity_features = []
     membrane_pos = features_df[["Membrane ID", "Membrane Position"]]
@@ -489,9 +486,6 @@ def extracting_features(
     dna_df, boxes_dna, dna_image = get_dna_features(color_img.copy())
     boxes_df = get_position_from_component_boxes(boxes_membrane, boxes_dna)
     final_results_df = get_features_from_df(membrane_df, dna_df, boxes_df, original_img)
-    print("final result shape: ", final_results_df.shape)
-    # plt.imshow(result_img)
-    # plt.show()
     return final_results_df, result_img
 
 

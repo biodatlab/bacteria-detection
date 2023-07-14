@@ -20,6 +20,7 @@ import yaml
 PRJ_ROOT = Path(__file__).parents[3] / 'web-app'
 CONFIG_DIR = PRJ_ROOT / 'backend/config.yaml'
 
+
 with open(CONFIG_DIR, 'r') as f:
     config = yaml.safe_load(f)
     color_model_path = os.path.join(PRJ_ROOT, config["colorize_model"]["checkpoint"])
@@ -32,23 +33,19 @@ def init_segmentatio_model():
     n_classes = 1 if len(CLASSES) == 1 else (len(CLASSES) + 1)  # case for binary and multiclass segmentation
     activation = 'sigmoid' if n_classes == 1 else 'softmax'
     model = sm.FPN(BACKBONE, classes=n_classes, activation=activation)
-    model.load_weights(color_model_path) 
-    
+    model.load_weights(color_model_path)
     return model
 
-def post_process_mask(mask: np.array) -> np.array:
 
+def post_process_mask(mask: np.array) -> np.array:
     mask[...,1] = mask[...,1] * 0
-    
     # morphology closing
     kernel = np.ones((3,3),np.uint8)
     mask[...,2] = cv2.morphologyEx(mask[...,2], cv2.MORPH_CLOSE, kernel, iterations = 3)
-    
-    
     return mask
 
+
 def colorize_image(image: np.array) -> np.array:
-    
     model = init_segmentatio_model()
     image = np.expand_dims(image, axis=0)
     pr_mask = model.predict(image).squeeze()
@@ -56,25 +53,13 @@ def colorize_image(image: np.array) -> np.array:
 
 
 if __name__ == "__main__":
-    
+
     test_images = glob(os.path.join(PRJ_ROOT, 'backend/resource/images_test/images/*.tif'))
     test_results_path = os.path.join(PRJ_ROOT, 'backend/resource/images_test/results')
     print(test_images)
-    
-    import tifffile
 
-    # for img_path in tqdm(test_images):
-    #     img = tifffile.imread(img_path)
-    #     img = img.transpose(1, 2, 0)
-    #     original_img = img
-    #     print("image input dtype", img.dtype)
-    #     img = (cv2.convertScaleAbs(img, alpha=(255.0/65535.0)))
-    #     img = img.astype(np.uint8)
-    #     color_img = (colorize_image(img.copy())*255).astype(np.uint8)
-    #     cv2.imwrite(os.path.join(test_results_path, 
-    #                              "color_" + img_path.split("/")[-1].split(".")[0] + ".png"
-    #                              ), cv2.cvtColor(color_img, cv2.COLOR_RGB2BGR))
-    img_path = '/home/badboy-002/github/senior_project/web-app/backend/resource/images_test/images/20221003_TS008_1hr_1mindye_TET_5x_05_R3D_D3D_CRC-1.tif'
+    import tifffile
+    img_path = os.path.join(PRJ_ROOT,'backend/resource/images_test/images/20221003_TS008_1hr_1mindye_TET_5x_05_R3D_D3D_CRC-1.tif')
     img = tifffile.imread(img_path)
     img = img.transpose(1, 2, 0)
     original_img = img

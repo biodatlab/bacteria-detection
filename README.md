@@ -24,7 +24,7 @@ and ensemble 3 models using **YoloX with PaFPN neck**
 * **Deep Mask-heads Above CenterNet (Deep-MAC)** for instance segmentation from the bounding box given by object detection models
 * **Open-CV** for features extraction 
 
-<img src="./Bacteria images/readme_image/diagram.jpg"/>
+<img src="./Bacteria images/readme_image/diagram.png"/>
 
 ## Dataset
 

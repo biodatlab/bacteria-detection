@@ -234,7 +234,6 @@ test_deploy_env/
 *.rar
 *.tar.gz
 web-app/backend/deepmac*/
-web-app/backend/demo_files/
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,python
 
 
