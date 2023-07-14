@@ -8,7 +8,7 @@ we present object detection for detecting bacteria and identifying the antibioti
 There are 8 classes we are interested including bacteria treated with **Ampicillin**, **Ciprofloxacin**, **Rifampicin**,
 **Tetracycline**, **Mecillinam**, **Kanamycin**, **Colistin**, and **Untreated**.
 
-<img src="./Bacteria images/readme_image/diagram.png"/>
+<img src="./Bacteria_images/readme_image/diagram.png"/>
 
 ## Object detection
 
@@ -37,7 +37,7 @@ We compare downstream cell classification tasks using features extracted from ou
 |---------------|--------------------------|--------------|
 | Mean F1-score | 0.76                     | 0.796        |
 
-This difference is considered acceptable because the number of bacteria that the CellProfiler is able to detect is significantly lower than the model’s but higher in terms of quality since the CellProfiler can only detect complete bacteria cells.
+This difference is considered acceptable because the number of bacteria that the CellProfiler can detect is significantly lower than the model’s but higher in terms of quality since the CellProfiler can only detect complete bacteria cells.
 
 ## Dataset
 
@@ -49,11 +49,11 @@ The current dataset contains **900 images**: Ampicillin (100), Ciprofloxacin (10
     <td style="text-align:center"> Low intensity image </td>
   <tr>
     <td> 
-         <img src="./Bacteria images/readme_image/high_intensity_untreat.png"  alt="1" width = 256px height = 256px >
+         <img src="./Bacteria_images/readme_image/high_intensity_untreat.png"  alt="1" width = 256px height = 256px >
     </td>
       
   <td>
-         <img src="./Bacteria images/readme_image/low_intensity_untreat.png"  alt="1" width = 256px height = 256px >
+         <img src="./Bacteria_images/readme_image/low_intensity_untreat.png"  alt="1" width = 256px height = 256px >
   </td>
     
    <!--<td><img src="./Scshot/trip_end.png" align="right" alt="4" width =  279px height = 496px></td>-->
@@ -74,7 +74,7 @@ conda activate path/to/virtual_environment
 
 ### Download Pre-trained Weight
 
-We release the pretrained model weight for reproducibility purposes. You can download the weights of all models [here](https://drive.google.com/drive/folders/1S8LEIkAcTxg5MJtzbsWkIeIt-Ayp5Mzz?usp=sharing) then
+We release the pre-trained model weight for reproducibility purposes. You can download the weights of all models [here](https://drive.google.com/drive/folders/1S8LEIkAcTxg5MJtzbsWkIeIt-Ayp5Mzz?usp=sharing) then
 
 - move folder checkpoints to `web-app/backend/mmdetection`
 - move `color_model_checkpoints` and `deepmac_1024x1024_coco17` to `web-app/backend`
@@ -99,13 +99,13 @@ $ npm start
 <table style="padding:10px">
   <tr>
     Upload a bacteria file(s)
-    <img src="./Bacteria images/readme_image/webapp_only.png"/>
+    <img src="./Bacteria_images/readme_image/webapp_only.png"/>
   <tr>
     Perform prediction: bbox with class (left) and bbox with index number for feature extraction table (right)
-    <img src="./Bacteria images/readme_image/webapp_img.png"
+    <img src="./Bacteria_images/readme_image/webapp_img.png"
   <tr>
     Table of Feature extraction results
-    <img src="./Bacteria images/readme_image/webapp_table.png"/>
+    <img src="./Bacteria_images/readme_image/webapp_table.png"/>
 </table>
 
 ## Members
