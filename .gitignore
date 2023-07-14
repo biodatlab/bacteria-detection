@@ -228,7 +228,6 @@ $RECYCLE.BIN/
 *.pth
 *.pkl
 *.pb
-*.tif
 *ipynb
 test_deploy_env/
 *.rar
