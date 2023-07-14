@@ -8,7 +8,7 @@ we present object detection for detecting bacteria and identifying the antibioti
 There are 8 classes we are interested including bacteria treated with **Ampicillin**, **Ciprofloxacin**, **Rifampicin**,
 **Tetracycline**, **Mecillinam**, **Kanamycin**, **Colistin**, and **Untreated**.
 
-<img src="./Bacteria images/readme_image/diagram.jpg"/>
+<img src="./Bacteria images/readme_image/diagram.png"/>
 
 ## Object detection
 
