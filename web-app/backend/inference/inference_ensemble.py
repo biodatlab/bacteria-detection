@@ -26,6 +26,7 @@ from app.inference_model import coco_to_csv, get_result, show_ann_from_json
 
 
 COCO_JSON_FORMAT = Path(__file__).parents[1] / "resource" / "coco_json_format.json"
+OUTPUT_DIR = Path(__file__).parents[2] / "output"
 
 
 def get_coco_json_template(coco_path: str):
@@ -66,14 +67,18 @@ def inference_ensemble_model(args_parser):
 
     time.sleep(1)
     app.clear_gpu()
-    pred_response = {"image": [], "box_id": [], "json_results": {}, "features": None}
+    output_feature = None
     result = get_coco_json_template(COCO_JSON_FORMAT)
+    
+    logger.debug('loading mask model...')
     mask_model = tf.keras.models.load_model(app.MASK_MODEL_PATH)
-
+    logger.debug('finish loading mask model')
+    
     for idx, img_stack in enumerate(read_image(imgs_folder)):
         img_path, tif_img, cv_img = img_stack
-        logger.debug('image path {}'.format(img_path))
+        logger.debug('loading {} image, image path {}'.format(idx, img_path))
         logger.debug('image shape {}'.format(tif_img.shape))
+        
         # preprocess
         tif_img = preprocess(tif_img)
         original_img = tif_img.copy()
@@ -96,12 +101,12 @@ def inference_ensemble_model(args_parser):
         img_with_bbox = show_ann_from_json(
             coco_result,
             color_img.copy(),
-            app.MODELS['crcnn_r2101']
+            app.MODELS['yolox_m']
         )
 
         # feature extraction
         logger.debug('feature extraction')
-        features, index_img = extracting_features(
+        features, _ = extracting_features(
             color_img.copy(),
             original_img.copy(),
             coco_result,
@@ -109,8 +114,41 @@ def inference_ensemble_model(args_parser):
         )
         app.clear_gpu()
 
-        logger.debug('Finish')
+        # adding result to json
+        result['images'].append(
+            {
+                "height": cv_img.shape[0],
+                "width": cv_img.shape[1],
+                "id": idx,
+                "file_name": str(Path(img_path).stem),
+            }
+        )
+        
+        result['annotations'] += coco_result
+
+        features['file_name'] = [
+            str(Path(img_path).stem) for i in range(len(features))
+        ]
+
+        if not isinstance(output_feature, pd.DataFrame):
+            output_feature = features
+        else:
+            output_feature = pd.concat(
+                [output_feature,
+                 features],
+                 axis=0
+            )
         break
+
+    logger.debug('save detection result')
+    # save result coco to json
+    with open(os.path.join(OUTPUT_DIR, 'detection.csv'), 'w') as f:
+        f.write(app.coco_to_csv(result))
+
+    logger.debug('save features result')
+    # save features to csv format in local
+    output_feature.to_csv(os.path.join(OUTPUT_DIR, 'features.csv'), index=False)
+    logger.debug("Finish inference")
 
 
 def parse_args():

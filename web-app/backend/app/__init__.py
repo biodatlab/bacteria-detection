@@ -237,7 +237,7 @@ async def create_file(answer_images: List[UploadFile]):
     with open("pred_response.json", "w") as f:
         json.dump(pred_response, f)
 
-    logger.info("Finish inference")
+    logger.info("Finish")
     return pred_response
 
 

@@ -65,7 +65,7 @@ def coco_to_csv(coco_json: List[Dict[str, str]]):
     coco_csv['xmax'] = annotation_df['bbox'].apply(lambda x: x[0] + x[2])
     coco_csv['ymax'] = annotation_df['bbox'].apply(lambda x: x[1] + x[3])
     coco_csv['score'] = annotation_df['score']
-    
+
     return coco_csv.to_csv()
     
 
