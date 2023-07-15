@@ -64,20 +64,22 @@ The current dataset contains **900 images**: Ampicillin (100), Ciprofloxacin (10
 ## Installation 
 
 ### Download and activate the environment
-- Download the virtual environment from [here](https://drive.google.com/file/d/1e3J-Eg9dTtupIfhvqRHu8fAz3zuM-kXr/view?usp=sharing)
+- Download the virtual environment from [here](https://drive.google.com/file/d/1EwfR__0LvSdsA8pa6B21qJLy-YM7r81A/view?usp=sharing)
+- Move the virtual environment to the bacteria-detection folder
 - extract the virtual environment
 
 ``` sh
 cd bacteria-detection
-conda activate path/to/virtual_environment
+conda activate bacteria-detection/path/to/virtual_environment
 ```
 
 ### Download Pre-trained Weight
 
-We release the pre-trained model weight for reproducibility purposes. You can download the weights of all models [here](https://drive.google.com/drive/folders/1S8LEIkAcTxg5MJtzbsWkIeIt-Ayp5Mzz?usp=sharing) then
+We release the pre-trained model weight for reproducibility purposes. You can download the weights of all models by DVC
 
-- move folder checkpoints to `web-app/backend/mmdetection`
-- move `color_model_checkpoints` and `deepmac_1024x1024_coco17` to `web-app/backend`
+``` sh
+dvc pull
+```
 
 ### Back-end: FastAPI
 
@@ -107,6 +109,12 @@ $ npm start
     Table of Feature extraction results
     <img src="./Bacteria_images/readme_image/webapp_table.png"/>
 </table>
+
+## Inference without web-app
+```
+$ cd webapp/backend/inverence
+$ python inference_ensemble.py --imgs_folder <Path/to/Image/Folder>
+```
 
 ## Members
 
