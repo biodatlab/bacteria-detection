@@ -103,10 +103,10 @@ $ npm start
     Upload a bacteria file(s)
     <img src="./Bacteria_images/readme_image/webapp_only.png"/>
   <tr>
-    Perform prediction: bbox with class (left) and bbox with index number for feature extraction table (right)
+    Perform prediction: bbox with class (left) and bbox with an index number for feature extraction table (right)
     <img src="./Bacteria_images/readme_image/webapp_img.png"
   <tr>
-    Table of Feature extraction results
+    Table of Feature Extraction results
     <img src="./Bacteria_images/readme_image/webapp_table.png"/>
 </table>
 
@@ -115,7 +115,9 @@ $ npm start
 $ cd webapp/backend/inverence
 $ python inference_ensemble.py --imgs_folder <Path/to/Image/Folder>
 ```
-
+the outputs will be at the output folder and include
+1. CSV file of all detection result
+2. CSV file of all features
 ## Members
 
 - Korrawiz Chotayapa
