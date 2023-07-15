@@ -1,6 +1,6 @@
 outs:
-- md5: abb62dd6b31954cdb36c644da830f5cc.dir
-  size: 1453532697
-  nfiles: 7
+- md5: a170108c779e2403eaaae31813c61ed7.dir
+  size: 2418379003
+  nfiles: 8
   hash: md5
   path: deepmac_1024x1024_coco17
