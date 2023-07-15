@@ -223,16 +223,11 @@ $RECYCLE.BIN/
 *.lnk
 
 *.csv
-*.h5
-*.pt
-*.pth
-*.pkl
-*.pb
 *ipynb
 test_deploy_env/
 *.rar
 *.tar.gz
-web-app/backend/deepmac*/
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,python
 
 
