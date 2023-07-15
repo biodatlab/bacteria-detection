@@ -70,7 +70,7 @@ The current dataset contains **900 images**: Ampicillin (100), Ciprofloxacin (10
 
 ``` sh
 cd bacteria-detection
-conda activate bacteria-detection/path/to/virtual_environment
+conda activate ./path/to/virtual_environment
 ```
 
 ### Download Pre-trained Weight
