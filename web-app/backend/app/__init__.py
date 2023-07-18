@@ -5,7 +5,7 @@ import json
 import os
 import time
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Annotated
 
 import cv2
 import numpy as np
@@ -13,7 +13,7 @@ import pandas as pd
 import tensorflow as tf
 import tifffile
 import yaml
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 
@@ -242,9 +242,10 @@ async def create_file(answer_images: List[UploadFile]):
 
 
 @app.put("/threshold/")
-async def update_threshold(threshold: float):
+async def update_threshold(threshold: str):
+    threshold = float(threshold)
     global SCORE_THRESHOLD
-    logger.info(f"input threshold:{threshold}")
+    logger.info(f"input threshold:{type(threshold)} {threshold}")
     SCORE_THRESHOLD = threshold
     print("score threshold:", SCORE_THRESHOLD)
     logger.info(f"score threshold:{SCORE_THRESHOLD}")
