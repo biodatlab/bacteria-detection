@@ -71,6 +71,7 @@ def inference_bacteria_model(image: np.ndarray, image_id: int, model_dict=MODELS
     global SCORE_THRESHOLD
     # get result from each model
     results = []
+    logger.info(f"Using confidence score >: {SCORE_THRESHOLD}")
     for model in model_dict.keys():
         results.append(
             get_result(
@@ -134,7 +135,10 @@ async def create_file(answer_images: List[UploadFile]):
     with open(COCO_TEMPLATE, "r") as coco_json:
         results = json.load(coco_json)
 
+    logger.info("Start inference model")
+    logger.info(f"loading model...")
     mask_model = tf.keras.models.load_model(MASK_MODEL_PATH)
+    logger.info(f"model loaded!")
 
     for idx, answer_image in enumerate(answer_images):
 
@@ -248,6 +252,6 @@ async def update_threshold(threshold: str):
     logger.info(f"input threshold:{type(threshold)} {threshold}")
     SCORE_THRESHOLD = threshold
     print("score threshold:", SCORE_THRESHOLD)
-    logger.info(f"score threshold:{SCORE_THRESHOLD}")
+    logger.info(f"update score threshold to:{SCORE_THRESHOLD}")
     return {"threshold": SCORE_THRESHOLD}
 

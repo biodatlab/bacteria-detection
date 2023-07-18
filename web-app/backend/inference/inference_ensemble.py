@@ -89,6 +89,7 @@ def inference_ensemble_model(args_parser):
         app.clear_gpu()
 
         # predict bbox
+        app.SCORE_THRESHOLD = args_parser.confidence
         logger.debug('predict bbox')
         coco_result = app.inference_bacteria_model(
             cv_img.copy(),
@@ -138,7 +139,6 @@ def inference_ensemble_model(args_parser):
                  features],
                  axis=0
             )
-        break
 
     logger.debug('save detection result')
     # save result coco to json
@@ -160,6 +160,14 @@ def parse_args():
         type=str,
         help="Path to folder of images",
     )
+
+    parser.add_argument(
+        "--confidence",
+        type=float,
+        default=0.3,
+        help="Confidence threshold for detection",
+    )
+
     return parser.parse_args()
 
 

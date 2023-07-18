@@ -83,6 +83,7 @@ def get_result(image: np.ndarray, model_dir:str, check_point_dir: str, image_id:
 
 
 def coco_to_mmdet(annotations):
+
     num_classes = max([ann['category_id'] for ann in annotations]) + 1
     detection_results = [[] for _ in range(num_classes)]
     
