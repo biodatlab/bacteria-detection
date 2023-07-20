@@ -16,12 +16,14 @@ There are 8 common classes we are interested including E.Coli bacteria treated w
 The current results of single models and ensemble models are as follows.
 
 
-| Model                    | Backbone             | Head | Neck           | mAP   | mIOU  | AP(50) | AP(75) | AP (medium) | AP (large) | Checkpoint|
-|--------------------------|----------------------|------|----------------|-------|-------|--------|--------|-------------|------------|------------|
-| Cascade RCNN             | Res2Net-101 + DcnV2  | SABL | PAFPN + DyHead | 0.652 | 0.800 | 0.808  | 0.762  | 0.677       | 0.692      | [ckpt](https://drive.google.com/file/d/1gw203zflhT_YrlB67rCT4O7hIh1N6njo/view?usp=sharing)|
-| YOLOX_m                  | YOLOX_M + CSPDarknet | -    | PAFPN          | 0.621 | 0.755 | 0.902  | 0.835  | 0.711       | 0.796      | [ckpt](https://drive.google.com/file/d/1gw203zflhT_YrlB67rCT4O7hIh1N6njo/view?usp=sharing)|
-| Cascade RCNN             | Res2Net-50 + DcnV2   | SABL | DyHead         | 0.680 | 0.802 | 0.820  | 0.779  | 0.704       | 0.628      | [ckpt](https://drive.google.com/file/d/1gw203zflhT_YrlB67rCT4O7hIh1N6njo/view?usp=sharing)|
-| Ensemble Model |    |  |  | 0.753 | 0.699 | 0.863   | 0.796  | 0.717       | 0.675      ||
+| Model                    | Backbone             | Head | Neck           | mAP   | mIOU  | AP(50) | AP(75) | AP (medium) | AP (large) | Config| Checkpoint| 
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| YOLOv2              | Darknet-19  |  |   | 0.053 | 0.192 | 0.015  | 0.048  | 0.102       | 0.140      | [config](https://drive.google.com/file/d/1cZlr8xFpUF4yewmXtlNVz6fdCepzM2n1/view?usp=sharing)| [ckpt](https://drive.google.com/file/d/1Tm3xWxKgweq94iSd2b0Zl3Gpu9vxX1Dv/view?usp=sharing)|
+| Faster R-CNN             | ResNet-50  | | | 0.041 | 0.097 | 0.031  | 0.005  | 0.045       | 0.325      | [config](https://drive.google.com/file/d/1cZlr8xFpUF4yewmXtlNVz6fdCepzM2n1/view?usp=sharing)| [ckpt](https://drive.google.com/file/d/1pXOvyey2I5_r2dXaTC-Cx0Kd2LHt8sC3/view?usp=drive_link)|
+| Cascade R-CNN             | Res2Net-101 + DcnV2  | SABL | PAFPN + DyHead | 0.652 | 0.800 | 0.808  | 0.762  | 0.677       | 0.692      | [config](web-app/backend/mmdetection/configs/bacteria_r2_101dcn_dyhead.py)| [ckpt](https://drive.google.com/file/d/15cg_AlEWRoOmPVp9NZh-VrgWe-SZq_8a/view?usp=sharing)|
+| YOLOX-M                  | CSPDarknet | -    | PAFPN          | 0.621 | 0.755 | 0.902  | 0.835  | 0.711       | 0.796      | [config](web-app/backend/mmdetection/configs/bacteria_yolox_m_8x8_300e_coco.py)| [ckpt](https://drive.google.com/file/d/1gw203zflhT_YrlB67rCT4O7hIh1N6njo/view?usp=sharing)|[config](web-app/backend/mmdetection/configs/bacteria_yolox_m_8x8_300e_coco.py)|
+| Cascade R-CNN             | Res2Net-50 + DcnV2   | SABL | DyHead         | 0.680 | 0.802 | 0.820  | 0.779  | 0.704       | 0.628      | [config](web-app/backend/mmdetection/configs/bacteria_r2_50dcn_dyhead.py)| [ckpt](https://drive.google.com/file/d/1PMbpZXUvjLWMXvpYIGzoiBLNzCPPN8jb/view?usp=sharing)|
+| Ensemble Model |    |  |  | 0.753 | 0.699 | 0.863   | 0.796  | 0.717       | 0.675      |  |  |
 
 
 ## Bacteria Feature Extraction
@@ -36,7 +38,7 @@ We apply the following approach to extract bacteria features:
 We compare downstream antibiotic classification with SVM using features extracted from our model and CellProfiler.
 
 |               | Bacteria detection model | CellProfiler |
-|---------------|--------------------------|--------------|
+|:---------------:|:---------------:|:---------------:|
 | Mean F1-score | 0.76                     | 0.796        |
 
 This difference is considered acceptable because the number of bacteria that the CellProfiler can detect is significantly lower than the model’s but higher in terms of quality since the CellProfiler can only detect complete bacteria cells.
@@ -117,9 +119,15 @@ $ npm start
 $ cd webapp/backend/inverence
 $ python inference_ensemble.py --imgs_folder <Path/to/Image/Folder>
 ```
-the outputs will be at the output folder and include
-1. CSV file of all detection result
-2. CSV file of all features
+The outputs will be in the output folder and include
+1. CSV file of all detection results
+2. CSV file of all extracted features
+
+### Training 
+YOLOv2 model is trained using [darknet](https://github.com/pjreddie/darknet)\
+Other object detection models are trained using [mmdetection](https://github.com/open-mmlab/mmdetection)
+
+
 ## Members
 
 - Korrawiz Chotayapa
