@@ -64,20 +64,20 @@ def preprocess(img: np.ndarray, func_list: List[Any] = None):
 def inference_ensemble_model(args_parser):
 
     imgs_folder = args_parser.imgs_folder
-
-    time.sleep(1)
+    logger.debug(f'start inference from {imgs_folder}')
     app.clear_gpu()
     output_feature = None
     result = get_coco_json_template(COCO_JSON_FORMAT)
-    
+    app.SCORE_THRESHOLD = args_parser.confidence
+    logger.debug(f'Using confidence threshold {app.SCORE_THRESHOLD}')
     logger.debug('loading mask model...')
     mask_model = tf.keras.models.load_model(app.MASK_MODEL_PATH)
     logger.debug('finish loading mask model')
     
     for idx, img_stack in enumerate(read_image(imgs_folder)):
         img_path, tif_img, cv_img = img_stack
-        logger.debug('loading {} image, image path {}'.format(idx, img_path))
-        logger.debug('image shape {}'.format(tif_img.shape))
+        logger.debug(f'loading {idx} image, image path {img_path}')
+        logger.debug(f'image shape {tif_img.shape}')
         
         # preprocess
         tif_img = preprocess(tif_img)
@@ -85,11 +85,10 @@ def inference_ensemble_model(args_parser):
 
         # coloring image
         logger.debug('coloring image')
-        color_img = (colorize_image(tif_img.copy()) * 255).astype(np.uint8)
+        color_img = (colorize_image(original_img.copy()) * 255).astype(np.uint8)
         app.clear_gpu()
 
         # predict bbox
-        app.SCORE_THRESHOLD = args_parser.confidence
         logger.debug('predict bbox')
         coco_result = app.inference_bacteria_model(
             cv_img.copy(),
@@ -103,6 +102,11 @@ def inference_ensemble_model(args_parser):
             coco_result,
             color_img.copy(),
             app.MODELS['yolox_m']
+        )
+        # save image with bbox
+        cv2.imwrite(
+            os.path.join(OUTPUT_DIR, f'pred_{str(Path(img_path).stem)}.png'),
+            img_with_bbox
         )
 
         # feature extraction
@@ -139,7 +143,7 @@ def inference_ensemble_model(args_parser):
                  features],
                  axis=0
             )
-
+        time.sleep(5)
     logger.debug('save detection result')
     # save result coco to json
     with open(os.path.join(OUTPUT_DIR, 'detection.csv'), 'w') as f:
@@ -153,7 +157,7 @@ def inference_ensemble_model(args_parser):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Inference Ensemble Model",  
+        description="Inference Ensemble Model", 
     )
     parser.add_argument(
         "--imgs_folder",

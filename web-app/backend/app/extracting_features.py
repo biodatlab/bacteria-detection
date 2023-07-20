@@ -465,7 +465,6 @@ def get_features_from_df(
 def labeling_img_box(color_img: np.ndarray, bbox_img: np.ndarray) -> np.ndarray:
     # overlay the image with the bounding box
     color_img[bbox_img != 0] = [255, 255, 255]
-
     return color_img
 
 
@@ -482,6 +481,10 @@ def extracting_features(
     membrane_df = membrane_df.drop(["Membrane Area"], axis=1)
     membrane_df = pd.merge(membrane_new_area_df, membrane_df, on="Membrane ID")
     contour_image = contour_image.astype("uint8")
+    plt.imshow(contour_image); 
+    plt.imshow(color_img);
+    plt.close('all')
+
     result_img = labeling_img_box(color_img.copy(), contour_image)
     dna_df, boxes_dna, dna_image = get_dna_features(color_img.copy())
     boxes_df = get_position_from_component_boxes(boxes_membrane, boxes_dna)
