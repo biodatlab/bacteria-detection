@@ -87,17 +87,17 @@ dvc pull
 
 ### Back-end: FastAPI
 
-```
-$ cd webapp/backend
-$ uvicorn app:app --reload
+```sh
+cd webapp/backend
+uvicorn app:app --reload
 ```
 
 ### Front-end: ReactJS
 
 Install NodeJS [here](https://nodejs.org/en)
-```
-$ cd webapp/frontend/bacteria-app
-$ npm start
+```sh
+cd webapp/frontend/bacteria-app
+npm start
 ```
 
 ### Web application
@@ -115,9 +115,9 @@ $ npm start
 </table>
 
 ## Inference without web-app
-```
-$ cd webapp/backend/inverence
-$ python inference_ensemble.py --imgs_folder <Path/to/Image/Folder>
+```sh
+cd webapp/backend/inverence
+python inference_ensemble.py --imgs_folder <Path/to/Image/Folder>
 ```
 The outputs will be in the output folder and include
 1. CSV file of all detection results
