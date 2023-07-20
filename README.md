@@ -33,7 +33,7 @@ We apply the following approach to extract bacteria features:
 - **Feature Pyramid Network (FPN)** for automatic color manipulation
 - **Deep MAC** for instance segmentation from the bounding box given by object detection models
 - **Open-CV** for feature extraction. We extract 19 morphological features using
-  OpenCV to obtain cell parameters such as area, perimeter, and dimensions of the segmented regions
+  OpenCV to obtain the perimeter, area, length, and width of the cell membrane, DNA, and color intensity (minimum, maximum, mean, median, and standard deviation of the green and blue color channels)
 
 We compare downstream antibiotic classification with SVM using features extracted from our model and CellProfiler.
 
