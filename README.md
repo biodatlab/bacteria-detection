@@ -115,7 +115,7 @@ npm start
 
 ## Inference without web-app
 ```sh
-cd webapp/backend/inverence
+cd webapp/backend/inference
 python inference_ensemble.py --imgs_folder <Path/to/Image/Folder>
 ```
 The outputs will be in the output folder and include
