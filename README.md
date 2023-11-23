@@ -1,5 +1,7 @@
 # Deep Learning-Based Object Detection and Bacteria Morphological Feature Extraction for Antimicrobial Resistance Applications
 
+See our [paper](https://ieeexplore.ieee.org/document/10322010) on IEEEXplore.
+
 Antibiotics are the primary drug for treating various kinds of infections occurring from bacteria and microbes.
 They work mainly by blocking the vital pathway of those organisms and stopping them from multiplying. Previous
 research shows that we can predict the antibiotics used on bacteria by visualizing their morphology. Here,
@@ -91,9 +93,10 @@ cd webapp/backend
 uvicorn app:app --reload
 ```
 
-### Front-end: ReactJS
+### Front-end
 
-Install NodeJS [here](https://nodejs.org/en)
+We use ReactJS as our frontend. To run an application, install NodeJS [here](https://nodejs.org/en) and run the following
+
 ```sh
 cd webapp/frontend/bacteria-app
 npm start
@@ -113,26 +116,38 @@ npm start
     <img src="./Bacteria_images/readme_image/webapp_table.png"/>
 </table>
 
-## Inference without web-app
+## Inference without Web Appplication
+
 ```sh
 cd webapp/backend/inference
 python inference_ensemble.py --imgs_folder <Path/to/Image/Folder>
 ```
+
 The outputs will be in the output folder and include
 1. CSV file of all detection results
 2. CSV file of all extracted features
 
 ## Training 
+
 YOLOv2 model is trained using [darknet](https://github.com/pjreddie/darknet)\
 Other object detection models are trained using [mmdetection](https://github.com/open-mmlab/mmdetection)
 
+## Citations
 
-## Members
+If you use our project or the our paper, please cite as
 
-- Korrawiz Chotayapa
-- Thanyatorn Leethamchayo
-- Piraya Chinnawong
-- Titipat Achakulvisut
+```
+@INPROCEEDINGS{10322010,
+  author={Chotayapa, Korrawiz and Leethamchayo, Thanyatorn and Chinnawong, Piraya and Samernate, Thanadon and Nonejuie, Poochit and Achakulvisut, Titipat},
+  booktitle={2023 15th Biomedical Engineering International Conference (BMEiCON)}, 
+  title={Deep Learning-Based Object Detection And Bacteria Morphological Feature Extraction For Antibiotic Mode Of Action Study}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-5},
+  doi={10.1109/BMEiCON60347.2023.10322010}}
+```
 
 ## ACKNOWLEDGMENT
+
 We would like to thank Poochit Nonejuie Ph.D. and Mr. Thanadon Samernate from the Institute of Molecular Biosciences that inspired us and prepared the dataset for this study.
